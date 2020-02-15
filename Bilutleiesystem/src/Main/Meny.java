@@ -58,29 +58,14 @@ public class Meny {
                 Utleiekontor valgtUtleier = BilUtleieselskap.finnUtleier(valgtID);
                 System.out.println("Her er alle bilene som er tilgjennelig: ");
                 valgtUtleier.bilerTilgjengelig();
-
-                //Finne ønsket bil
-//                        System.out.println("Skriv inn registreringsnummer på bil");
-//                        String regiBil = scanner.nextLine();
-//                        Bil valgtBil = valgtUtleier.finnBil(regiBil);
-
-                //Reservere bil
-
+                
 
                 String bilRegi = valgtUtleier.reserver(bruker);
                 Bil bil = valgtUtleier.finnBil(bilRegi);
-                System.out.println(bil.isLedig());
-//                                Utleie reserver = new Utleie(bruker, regiBil, startDato, sluttDato);
-//                                reservering.add(reserver);
 
                 //Send kvittering og få bruker til å returnere bil
                 valgtUtleier.returner(bruker);
-                System.out.println(bil.isLedig());
-                System.out.println(bil.getKm());
-
-                //        System.out.println("Har du levert bilen? 1 for ja, 2 for nei");
-
-                System.out.println("KM etter retur" + bil.getKm());
+  
 
             } else {
                 System.out.println("Finnes ingen bruker med dette kortet");
@@ -130,28 +115,12 @@ public class Meny {
             System.out.println("Her er alle bilene som er tilgjennelig: ");
             valgtUtleier.bilerTilgjengelig();
 
-            //Finne ønsket bil
-//                        System.out.println("Skriv inn registreringsnummer på bil");
-//                        String regiBil = scanner.nextLine();
-//                        Bil valgtBil = valgtUtleier.finnBil(regiBil);
-
             //Reservere bil
-
-
             String bilRegi = valgtUtleier.reserver(bruker);
             Bil bil = valgtUtleier.finnBil(bilRegi);
-            System.out.println(bil.isLedig());
-//                                Utleie reserver = new Utleie(bruker, regiBil, startDato, sluttDato);
-//                                reservering.add(reserver);
 
             //Send kvittering og få bruker til å returnere bil
             valgtUtleier.returner(bruker);
-            System.out.println(bil.isLedig());
-            System.out.println(bil.getKm());
-
-            //        System.out.println("Har du levert bilen? 1 for ja, 2 for nei");
-
-            System.out.println("KM etter retur" + bil.getKm());
 
         }
 
