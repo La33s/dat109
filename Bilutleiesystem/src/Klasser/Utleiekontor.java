@@ -33,50 +33,50 @@ public class Utleiekontor {
     public String reserver(Bruker bruker) {
         Scanner scanner = new Scanner(System.in);
 
-        System.out.println("Skriv inn registreningsnummer på ønsket bil");
+        System.out.println("Skriv inn registreningsnummer på onsket bil");
         String regiBil = scanner.nextLine();
 
-                System.out.println("Stardato");
-                System.out.println("Skriv inn: åååå");
+                System.out.println("Startdato");
+                System.out.println("Skriv inn: aar i format: 20**");
                 int år = scanner.nextInt();
                 scanner.nextLine();
 
-                System.out.println("Skriv inn: mm");
+                System.out.println("Skriv inn: maaned i format: mm");
                 int mm = scanner.nextInt();
                 scanner.nextLine();
 
-                System.out.println("Skriv inn: dd");
+                System.out.println("Skriv inn: dag i format: dd");
                 int dd = scanner.nextInt();
                 scanner.nextLine();
 
-                System.out.println("Skriv inn: hh");
+                System.out.println("Skriv inn time i format: hh");
                 int hh = scanner.nextInt();
                 scanner.nextLine();
 
-                System.out.println("Skriv inn: minutter");
+                System.out.println("Skriv inn: minutter i format: mi");
                 int min = scanner.nextInt();
                 scanner.nextLine();
 
                 Date startDato = new Date(år, mm, dd, hh, min);
 
                 System.out.println("Sluttdato");
-                System.out.println("Skriv inn: åååå");
+                System.out.println("Skriv inn: aar i format: 20**");
                 int sluttår = scanner.nextInt();
                 scanner.nextLine();
 
-                System.out.println("Skriv inn: mm");
+                System.out.println("Skriv inn: maaned i format: mm");
                 int sluttmm = scanner.nextInt();
                 scanner.nextLine();
 
-                System.out.println("Skriv inn: dd");
+                System.out.println("Skriv inn: dag i format: dd");
                 int sluttdd = scanner.nextInt();
                 scanner.nextLine();
 
-                System.out.println("Skriv inn: hh");
+                System.out.println("Skriv inn: time i format: hh");
                 int slutthh = scanner.nextInt();
                 scanner.nextLine();
 
-                System.out.println("Skriv inn: minutter");
+                System.out.println("Skriv inn: minutteri format: mi");
                 int sluttmin = scanner.nextInt();
                 scanner.nextLine();
 
@@ -86,17 +86,25 @@ public class Utleiekontor {
                 utleieListe.add(utleie);
 
                 finnBil(regiBil).setLedig(false);
+                
+                //print ut en bekreftelse på bestilling ved å printe ut registreringnr om bilen og start og slutttidspunktet.
+                System.out.println("Du har nå lånt bilen med registreringsnummer " + regiBil + " fra " + startDato + " til og med " + sluttDato);
+
 
                 return regiBil;
     }
-
+    /**
+     * 
+     * @param bruker
+     * tar inn 
+     */
     public void returner(Bruker bruker) {
         Scanner scanner = new Scanner(System.in);
 
         System.out.println("Skriv inn reginummeret på bilen du skal levere:");
         String regi = scanner.nextLine();
 
-        System.out.println("Hvor mange KM kjørte du?");
+        System.out.println("Hvor mange KM kjorte du?");
         int kilometer = scanner.nextInt();
         scanner.nextLine();
 
@@ -117,10 +125,51 @@ public class Utleiekontor {
 //            long diffMin = diff / (60*1000) % 60;
                 long diffHour = diff / (60 * 60 * 1000);
 
-                System.out.println("Regningen kommer på: " + BilUtleieselskap.regning(diffHour, kilometer, bil.getBilTyp()));
+                System.out.println("Regningen kommer paa: " + BilUtleieselskap.regning(diffHour, kilometer, bil.getBilTyp()));
             }
         }
         }
+    /**
+     * @param Listen med biler som tilhørerutleieselskapet
+     * 
+     * spør om all attributene til
+     * lager en ny bil 
+     * legger bilen i liste for dette utleiekontoret
+     */
+    public void registrerBil(List<Bil> Utleiekontor ) {
+    	Scanner scanner = new Scanner(System.in);
+    	System.out.println("Skriv inn registeringsnummeret: ");
+        String regi = scanner.nextLine();
+
+        System.out.println("Skriv inn antall km kjørt: ");
+        int km = scanner.nextInt();
+        scanner.nextLine();
+        
+
+        System.out.println("Skriv inn merke: ");
+        String merke = scanner.nextLine();
+        
+        System.out.println("Skriv inn farge: ");
+        String farge = scanner.nextLine();
+
+        System.out.println("Skriv inn biltype; 1 for LITEN, 2 for MELLOMSTOR, 3 for STOR, 4 for STASJONSVOGN ");
+        int bilKat = scanner.nextInt();
+      //antar at man bare kan registrere ledige biler
+        if(bilKat == 1) {
+        	bilerX.add(new Bil(regi, km, merke, farge, Bilkategori.LITEN, true));
+        	Bil bil = 
+        }
+        else if(bilKat == 2) {
+        	bilerX.add(new Bil(regi, km, merke, farge, Bilkategori.MELLOMSTOR, true));
+        }
+        else if(bilKat == 3) {
+        	bilerX.add(new Bil(regi, km, merke, farge, Bilkategori.STOR, true));
+        }
+        else if(bilKat == 4) {
+        	bilerX.add(new Bil(regi, km, merke, farge, Bilkategori.STASJONSVOGN, true));
+        }
+        
+    }
 
 //    }
 

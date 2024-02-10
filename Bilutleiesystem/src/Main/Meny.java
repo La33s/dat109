@@ -8,11 +8,11 @@ public class Meny {
 
     public static void main (String[] args){
 
-        //Bruker test
+        //Generere test data
         Addresse ad = new Addresse("Herman Grans vei 12", 5162, "Laksevåg");
         Bruker bruker = new Bruker("Knut Anders", "Aabø", ad, 45284167, "4925560020204562");
 
-        //BilUtleieselskap test
+        //BilUtleieselskap generere test data
 
         List<Bil> biler1 = new ArrayList<Bil>(Arrays.asList((new Bil("ER455266", 150000, "VW", "Space gray", Bilkategori.MELLOMSTOR, true)),
                                                          (new Bil("ER19547", 2000, "Volvo", "Svart", Bilkategori.STASJONSVOGN, true))));
@@ -34,10 +34,10 @@ public class Meny {
 
 
 
-        //Start med innlogging/oppretting av bruker
-        int start = start();
+        //Start med valg av hva en vil gjøre i menyen
+        int valgtMeny = velgMeny();
 
-        if (start == 1) {
+        if (valgtMeny == 1) { //for kundeinnlogging
             System.out.println("Skriv inn kortnummeret:");
 
             String kort = scanner.nextLine();
@@ -71,7 +71,7 @@ public class Meny {
                 System.out.println("Finnes ingen bruker med dette kortet");
             }
 
-        } else if (start == 2) {
+        } else if (valgtMeny == 2) { // for kunde registrering
 
         //Ny bruker
         System.out.println("Skriv inn fornavn: ");
@@ -120,15 +120,57 @@ public class Meny {
             Bil bil = valgtUtleier.finnBil(bilRegi);
 
             //Send kvittering og få bruker til å returnere bil
+            
+            
             valgtUtleier.returner(bruker);
 
         }
+       
+        else if (valgtMeny == 3) { // for registrering av ny bil
+        	//registrereBil()
+             System.out.println("Velg hvilkeet utleiekontor du vil registrere bilen for: ");
+             int valgtUtleieKontor = scanner.nextInt();
+
+             registrereBil(valgtUtleieKontor);
+        }
+        else if (valgtMeny == 4) { // for registrering av et nytt utleiekontor
+        	//autogenerere id til
+        	System.out.println("Skriv inn fornavn: ");
+            String fn = scanner.nextLine();
+
+            System.out.println("Skriv inn etternavn: ");
+            String en = scanner.nextLine();
+
+            System.out.println("Skriv inn telefonnummer: ");
+            int tele = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.println("Skriv inn kort: ");
+            String kort = scanner.nextLine();
+
+            //Addressen
+            System.out.println("Skriv inn gate addresse: ");
+            String ga = scanner.nextLine();
+
+            System.out.println("Skriv inn postnummer:");
+            int pn = scanner.nextInt();
+            scanner.nextLine();
+
+            System.out.println("Skriv inn poststed: ");
+            String ps = scanner.nextLine();
+
+            Addresse brukerAddresse = new Addresse(ga, pn, ps);
+            Bruker lagtBruker = new Bruker(fn, en, brukerAddresse, pn, kort);
+
+        	
+        }
+        
 
     }
 
-    public static int start(){
+    public static int velgMeny(){
         Scanner scanner = new Scanner(System.in);
-            System.out.println("1 for login" + "\n" + "2 for registrering");
+            System.out.println("1 for login for kunder" + "\n" + "2 for registrering for kunder" + "/n" + "3 for registrering av utleiekontorer" + "/n" + "4 for registering av nye biler");
 
             int start = scanner.nextInt();
             scanner.nextLine();

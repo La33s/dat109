@@ -1,5 +1,7 @@
 package Klasser;
-
+/**
+ * Bil klassen
+ */
 public class Bil {
     String registreringsnummer;
     int km;

@@ -1,5 +1,7 @@
 package Klasser;
-
+/*
+ * Klasse for å registrere adresse
+ */
 public class Addresse {
     String gateAddresse;
     int postnummer;
@@ -35,6 +37,9 @@ public class Addresse {
         this.poststed = poststed;
     }
 
+    /*
+     * samler adresse informasjon til en string
+     */
     @Override
     public String toString() {
         return "Addresse{" +
