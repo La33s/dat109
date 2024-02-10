@@ -17,6 +17,7 @@ public class Utleiekontor {
         this.addresse = addresse;
         this.telefonnummer = telefonnummer;
         this.biler = biler;
+        this.utleieListe = utleieListe;
     }
 
     public Bil finnBil(String regi) {
@@ -136,7 +137,7 @@ public class Utleiekontor {
      * lager en ny bil 
      * legger bilen i liste for dette utleiekontoret
      */
-    public void registrerBil(List<Bil> Utleiekontor ) {
+    public void registrerBil() {
     	Scanner scanner = new Scanner(System.in);
     	System.out.println("Skriv inn registeringsnummeret: ");
         String regi = scanner.nextLine();
@@ -156,19 +157,19 @@ public class Utleiekontor {
         int bilKat = scanner.nextInt();
       //antar at man bare kan registrere ledige biler
         if(bilKat == 1) {
-        	bilerX.add(new Bil(regi, km, merke, farge, Bilkategori.LITEN, true));
-        	Bil bil = 
+        	biler.add(new Bil(regi, km, merke, farge, Bilkategori.LITEN, true));
+
         }
         else if(bilKat == 2) {
-        	bilerX.add(new Bil(regi, km, merke, farge, Bilkategori.MELLOMSTOR, true));
+        	biler.add(new Bil(regi, km, merke, farge, Bilkategori.MELLOMSTOR, true));
         }
         else if(bilKat == 3) {
-        	bilerX.add(new Bil(regi, km, merke, farge, Bilkategori.STOR, true));
+        	biler.add(new Bil(regi, km, merke, farge, Bilkategori.STOR, true));
         }
         else if(bilKat == 4) {
-        	bilerX.add(new Bil(regi, km, merke, farge, Bilkategori.STASJONSVOGN, true));
+        	biler.add(new Bil(regi, km, merke, farge, Bilkategori.STASJONSVOGN, true));
         }
-        
+        scanner.close();
     }
 
 //    }

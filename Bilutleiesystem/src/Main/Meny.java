@@ -1,15 +1,24 @@
 package Main;
 
-import Klasser.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Scanner;
 
-import java.util.*;
+import Klasser.Addresse;
+import Klasser.Bil;
+import Klasser.BilUtleieselskap;
+import Klasser.Bilkategori;
+import Klasser.Bruker;
+import Klasser.Utleie;
+import Klasser.Utleiekontor;
 
 public class Meny {
 
     public static void main (String[] args){
 
         //Generere test data
-        Addresse ad = new Addresse("Herman Grans vei 12", 5162, "Laksevåg");
+    	Addresse ad = new Addresse("Herman Grans vei 12", 5162, "Laksevåg");
         Bruker bruker = new Bruker("Knut Anders", "Aabø", ad, 45284167, "4925560020204562");
 
         //BilUtleieselskap generere test data
@@ -38,68 +47,16 @@ public class Meny {
         int valgtMeny = velgMeny();
 
         if (valgtMeny == 1) { //for kundeinnlogging
-            System.out.println("Skriv inn kortnummeret:");
+        	
+        	selskap.kundeInnlogging();
 
-            String kort = scanner.nextLine();
-
-            Bruker bruk = BilUtleieselskap.finnBruker(kort);
-
-            if (bruk != null) {
-                //Skriv ut alle områdene du kan hente bil
-                selskap.utleiereTilgjengelig();
-
-                //Skriv inn ønsket plass (addresse)
-                System.out.println("Skriv inn ID nummeret på utleieren du vil ha: ");
-
-                int valgtID = scanner.nextInt();
-                scanner.nextLine();
-
-                //Skriv ut alle bilene i denne ønsket plassen (Utleiekontoret)
-                Utleiekontor valgtUtleier = BilUtleieselskap.finnUtleier(valgtID);
-                System.out.println("Her er alle bilene som er tilgjennelig: ");
-                valgtUtleier.bilerTilgjengelig();
-                
-
-                String bilRegi = valgtUtleier.reserver(bruker);
-                Bil bil = valgtUtleier.finnBil(bilRegi);
-
-                //Send kvittering og få bruker til å returnere bil
-                valgtUtleier.returner(bruker);
-  
-
-            } else {
-                System.out.println("Finnes ingen bruker med dette kortet");
-            }
+            
 
         } else if (valgtMeny == 2) { // for kunde registrering
 
         //Ny bruker
-        System.out.println("Skriv inn fornavn: ");
-        String fn = scanner.nextLine();
-
-        System.out.println("Skriv inn etternavn: ");
-        String en = scanner.nextLine();
-
-        System.out.println("Skriv inn telefonnummer: ");
-        int tele = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println("Skriv inn kort: ");
-        String kort = scanner.nextLine();
-
-        //Addressen
-        System.out.println("Skriv inn gate addresse: ");
-        String ga = scanner.nextLine();
-
-        System.out.println("Skriv inn postnummer:");
-        int pn = scanner.nextInt();
-        scanner.nextLine();
-
-        System.out.println("Skriv inn poststed: ");
-        String ps = scanner.nextLine();
-
-        Addresse brukerAddresse = new Addresse(ga, pn, ps);
-        Bruker lagtBruker = new Bruker(fn, en, brukerAddresse, pn, kort);
+        	Bruker regisrertBruker = selskap.kundeRegistrering();
+        
 
             //Skriv ut alle områdene du kan hente bil
             selskap.utleiereTilgjengelig();
@@ -116,52 +73,31 @@ public class Meny {
             valgtUtleier.bilerTilgjengelig();
 
             //Reservere bil
-            String bilRegi = valgtUtleier.reserver(bruker);
+            String bilRegi = valgtUtleier.reserver(regisrertBruker);
             Bil bil = valgtUtleier.finnBil(bilRegi);
 
             //Send kvittering og få bruker til å returnere bil
             
             
-            valgtUtleier.returner(bruker);
+            valgtUtleier.returner(regisrertBruker);
 
         }
        
         else if (valgtMeny == 3) { // for registrering av ny bil
         	//registrereBil()
              System.out.println("Velg hvilkeet utleiekontor du vil registrere bilen for: ");
+             selskap.utleiereTilgjengelig();
              int valgtUtleieKontor = scanner.nextInt();
+             
+             Utleiekontor valgtUtleier = BilUtleieselskap.finnUtleier(valgtUtleieKontor);
+             
 
-             registrereBil(valgtUtleieKontor);
+             valgtUtleier.registrerBil();
         }
         else if (valgtMeny == 4) { // for registrering av et nytt utleiekontor
-        	//autogenerere id til
-        	System.out.println("Skriv inn fornavn: ");
-            String fn = scanner.nextLine();
-
-            System.out.println("Skriv inn etternavn: ");
-            String en = scanner.nextLine();
-
-            System.out.println("Skriv inn telefonnummer: ");
-            int tele = scanner.nextInt();
-            scanner.nextLine();
-
-            System.out.println("Skriv inn kort: ");
-            String kort = scanner.nextLine();
-
-            //Addressen
-            System.out.println("Skriv inn gate addresse: ");
-            String ga = scanner.nextLine();
-
-            System.out.println("Skriv inn postnummer:");
-            int pn = scanner.nextInt();
-            scanner.nextLine();
-
-            System.out.println("Skriv inn poststed: ");
-            String ps = scanner.nextLine();
-
-            Addresse brukerAddresse = new Addresse(ga, pn, ps);
-            Bruker lagtBruker = new Bruker(fn, en, brukerAddresse, pn, kort);
-
+        	
+        	selskap.registrereUtleiekontor();
+        	
         	
         }
         
@@ -174,6 +110,7 @@ public class Meny {
 
             int start = scanner.nextInt();
             scanner.nextLine();
+            scanner.close();
             return start;
     }
 
